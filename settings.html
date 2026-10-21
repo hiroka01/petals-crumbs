@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Settings | Petals &amp; Crumbs</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-flower" aria-hidden="true">❀</span><span><span class="brand-name">Petals &amp; Crumbs</span><span class="brand-tagline">CAKES · FLOWERS · GIFTS</span></span></a>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="navigation" aria-label="Main navigation"><a href="index.html">Home</a><a href="collections.html">Collections</a><a href="customize.html">Customize</a><a href="about.html">About</a><a class="active" href="login.html">My account</a></nav>
+</header>
+<main>
+  <section class="page-intro"><p class="eyebrow">YOUR ACCOUNT</p><h1>Account Settings</h1><p>Keep your profile and gift details up to date.</p></section>
+  <section class="account-area settings-area">
+    <p class="signed-in-as">Signed in as <strong id="settingsEmail"></strong></p>
+    <p class="account-note">For your security, never enter a full card number or security code.</p>
+    <div class="account-panel">
+      <h2>Profile</h2>
+      <form id="settingsForm">
+        <div class="form-grid">
+          <div class="form-field"><label for="profileName">Full name</label><input type="text" id="profileName" name="name" autocomplete="name" required></div>
+          <div class="form-field"><label for="profilePhone">Phone number</label><input type="tel" id="profilePhone" name="phone" autocomplete="tel"></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Save Profile</button>
+        <p id="settingsMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="account-panel">
+      <h2>Billing Address</h2>
+      <form id="billingForm">
+        <div class="form-grid">
+          <div class="form-field full-width"><label for="billingAddress">Street address</label><input type="text" id="billingAddress" name="address" autocomplete="street-address" required></div>
+          <div class="form-field"><label for="billingCity">City</label><input type="text" id="billingCity" name="city" autocomplete="address-level2" required></div>
+          <div class="form-field"><label for="billingPostcode">Postcode</label><input type="text" id="billingPostcode" name="postcode" autocomplete="postal-code" required></div>
+          <div class="form-field full-width"><label for="billingCountry">Country</label><input type="text" id="billingCountry" name="country" autocomplete="country-name" required></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Save Billing Address</button>
+        <p id="billingMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="account-panel">
+      <h2>Delivery Information</h2>
+      <p>Save the address where you would like orders delivered.</p>
+      <form id="deliveryForm">
+        <div class="form-grid">
+          <div class="form-field"><label for="deliveryName">Recipient name</label><input type="text" id="deliveryName" name="name" autocomplete="shipping name" required></div>
+          <div class="form-field"><label for="deliveryPhone">Contact phone</label><input type="tel" id="deliveryPhone" name="phone" autocomplete="shipping tel" required></div>
+          <div class="form-field full-width"><label for="deliveryAddress">Street address</label><input type="text" id="deliveryAddress" name="address" autocomplete="shipping street-address" required></div>
+          <div class="form-field"><label for="deliveryCity">City</label><input type="text" id="deliveryCity" name="city" autocomplete="shipping address-level2" required></div>
+          <div class="form-field"><label for="deliveryPostcode">Postcode</label><input type="text" id="deliveryPostcode" name="postcode" autocomplete="shipping postal-code" required></div>
+          <div class="form-field full-width"><label for="deliveryCountry">Country</label><input type="text" id="deliveryCountry" name="country" autocomplete="shipping country-name" required></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Save Delivery Information</button>
+        <p id="deliveryMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="account-panel">
+      <h2>Order Tracking</h2>
+      <p>Enter tracking details from your order confirmation to keep them with your profile. Tracking status is updated manually and is not connected to a courier.</p>
+      <form id="trackingForm">
+        <div class="form-grid">
+          <div class="form-field"><label for="trackingOrderId">Order number</label><input type="text" id="trackingOrderId" name="orderId" autocomplete="off"></div>
+          <div class="form-field"><label for="trackingCarrier">Courier</label><input type="text" id="trackingCarrier" name="carrier" autocomplete="off"></div>
+          <div class="form-field"><label for="trackingNumber">Tracking number</label><input type="text" id="trackingNumber" name="trackingNumber" autocomplete="off"></div>
+          <div class="form-field"><label for="trackingStatus">Delivery status</label><select id="trackingStatus" name="status"><option value="">Select status</option><option>Order received</option><option>Preparing</option><option>Dispatched</option><option>Out for delivery</option><option>Delivered</option></select></div>
+          <div class="form-field full-width"><label for="trackingUrl">Courier tracking link</label><input type="url" id="trackingUrl" name="url" placeholder="https://..." inputmode="url" autocomplete="url"></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Save Tracking Details</button>
+        <p id="trackingMessage" class="form-message" role="status" aria-live="polite"></p>
+        <p id="trackingSummary" class="tracking-summary" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="account-panel">
+      <h2>Payment Method</h2>
+      <form id="paymentForm">
+        <div class="form-grid">
+          <div class="form-field"><label for="paymentName">Name on card</label><input type="text" id="paymentName" name="name" autocomplete="cc-name"></div>
+          <div class="form-field"><label for="paymentLastFour">Card last four digits</label><input type="text" id="paymentLastFour" name="lastFour" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="1234" autocomplete="off" aria-describedby="lastFourHelp"><small id="lastFourHelp">Do not enter the full card number or security code.</small></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Save Payment Display</button>
+        <p id="paymentMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="logout-row"><div><h2>Sign Out</h2><p>Sign out of your account.</p></div><button id="logoutButton" class="button button-outline" type="button">Log Out</button></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <a class="brand footer-brand" href="index.html"><span class="brand-flower" aria-hidden="true">❀</span><span><span class="brand-name">Petals &amp; Crumbs</span><span class="brand-tagline">CAKES · FLOWERS · GIFTS</span></span></a>
+  <div class="footer-links"><a href="index.html">Home</a><a href="collections.html">Collections</a><a href="customize.html">Customize</a><a href="about.html">About</a><a href="feedback.html">Inquiries</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Petals%20%26%20Crumbs" target="_blank" rel="noopener noreferrer">Location</a><a href="login.html">My account</a></div>
+  <p class="copyright">© <span id="year">2026</span> Petals &amp; Crumbs. All rights reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Petals &amp; Crumbs</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-flower" aria-hidden="true">❀</span><span><span class="brand-name">Petals &amp; Crumbs</span><span class="brand-tagline">CAKES · FLOWERS · GIFTS</span></span></a>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="navigation" aria-label="Main navigation"><a href="index.html">Home</a><a href="collections.html">Collections</a><a href="customize.html">Customize</a><a href="about.html">About</a><a class="active" href="login.html">My account</a></nav>
+</header>
+<main>
+  <section class="page-intro"><p class="eyebrow">WELCOME BACK</p><h1>Sign In</h1><p>Sign in to manage your profile and gift details.</p></section>
+  <section class="account-area">
+    <div class="account-panel auth-panel">
+      <h2>Your Account</h2>
+      <form id="loginForm">
+        <div class="form-grid">
+          <div class="form-field full-width"><label for="loginEmail">Email address <span class="required-mark" aria-hidden="true">*</span></label><input type="email" id="loginEmail" name="email" autocomplete="email" required></div>
+          <div class="form-field full-width"><label for="loginPassword">Password <span class="required-mark" aria-hidden="true">*</span></label><input type="password" id="loginPassword" name="password" autocomplete="current-password" required></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Sign In →</button>
+        <p id="loginMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+      <p class="account-switch">New to Petals &amp; Crumbs? <a href="register.html">Create an account</a></p>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <a class="brand footer-brand" href="index.html"><span class="brand-flower" aria-hidden="true">❀</span><span><span class="brand-name">Petals &amp; Crumbs</span><span class="brand-tagline">CAKES · FLOWERS · GIFTS</span></span></a>
+  <div class="footer-links"><a href="index.html">Home</a><a href="collections.html">Collections</a><a href="customize.html">Customize</a><a href="about.html">About</a><a href="feedback.html">Inquiries</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Petals%20%26%20Crumbs" target="_blank" rel="noopener noreferrer">Location</a><a href="login.html">My account</a></div>
+  <p class="copyright">© <span id="year">2026</span> Petals &amp; Crumbs. All rights reserved.</p>
+</footer>
+</body>
+</html>
