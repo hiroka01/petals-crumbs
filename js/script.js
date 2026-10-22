@@ -67,8 +67,43 @@ if (heroShowcase) {
 // Custom gift form confirmation
 const giftForm = document.getElementById("giftForm");
 const formMessage = document.getElementById("formMessage");
+const inspirationImages = document.getElementById("inspirationImages");
+const imagePreviews = document.getElementById("imagePreviews");
 
 if (giftForm && formMessage) {
+  const previewUrls = [];
+
+  const clearImagePreviews = () => {
+    previewUrls.forEach((url) => URL.revokeObjectURL(url));
+    previewUrls.length = 0;
+    imagePreviews.replaceChildren();
+  };
+
+  if (inspirationImages && imagePreviews) {
+    inspirationImages.addEventListener("change", () => {
+      clearImagePreviews();
+
+      Array.from(inspirationImages.files)
+        .filter((file) => file.type.startsWith("image/"))
+        .forEach((file) => {
+          const url = URL.createObjectURL(file);
+          previewUrls.push(url);
+
+          const preview = document.createElement("figure");
+          preview.className = "image-preview";
+          const image = document.createElement("img");
+          image.src = url;
+          image.alt = `Preview of ${file.name}`;
+          const caption = document.createElement("figcaption");
+          caption.textContent = file.name;
+          preview.append(image, caption);
+          imagePreviews.append(preview);
+        });
+    });
+
+    giftForm.addEventListener("reset", clearImagePreviews);
+  }
+
   giftForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -79,7 +114,7 @@ if (giftForm && formMessage) {
 
     const customerName = document.getElementById("customerName").value.trim();
     formMessage.textContent =
-      `Thank you, ${customerName}! Your gift request has been received.`;
+      `Thank you, ${customerName}! Your sample gift request has been received. Any selected images were only previewed and have not been uploaded or saved.`;
     giftForm.reset();
   });
 }
@@ -133,7 +168,7 @@ if (registerForm && registerMessage) {
       billing: { address: "", city: "", postcode: "", country: "" },
       payment: { name: "", lastFour: "" },
       delivery: { name: "", phone: "", address: "", city: "", postcode: "", country: "" },
-      orderTracking: { orderId: "", carrier: "", trackingNumber: "", status: "", url: "" }
+      orderTracking: { carrier: "", trackingNumber: "", status: "", url: "" }
     };
     localStorage.setItem(accountStorageKey, JSON.stringify(accounts));
     sessionStorage.setItem(activeAccountKey, email);
@@ -166,16 +201,18 @@ const settingsForm = document.getElementById("settingsForm");
 const billingForm = document.getElementById("billingForm");
 const paymentForm = document.getElementById("paymentForm");
 const deliveryForm = document.getElementById("deliveryForm");
-const trackingForm = document.getElementById("trackingForm");
 
-if (settingsForm && billingForm && paymentForm && deliveryForm && trackingForm) {
+if (settingsForm && billingForm && paymentForm && deliveryForm) {
   const email = sessionStorage.getItem(activeAccountKey);
   const settingsMessage = document.getElementById("settingsMessage");
   const billingMessage = document.getElementById("billingMessage");
   const paymentMessage = document.getElementById("paymentMessage");
   const deliveryMessage = document.getElementById("deliveryMessage");
-  const trackingMessage = document.getElementById("trackingMessage");
-  const trackingSummary = document.getElementById("trackingSummary");
+  const trackingStatusDisplay = document.getElementById("trackingStatusDisplay");
+  const trackingCarrierDisplay = document.getElementById("trackingCarrierDisplay");
+  const trackingNumberDisplay = document.getElementById("trackingNumberDisplay");
+  const trackingLinkDisplay = document.getElementById("trackingLinkDisplay");
+  const trackingLinkEmpty = document.getElementById("trackingLinkEmpty");
 
   if (!email) {
     window.location.replace("login.html");
@@ -196,7 +233,6 @@ if (settingsForm && billingForm && paymentForm && deliveryForm && trackingForm) 
         country: ""
       };
       account.orderTracking = account.orderTracking || {
-        orderId: "",
         carrier: "",
         trackingNumber: "",
         status: "",
@@ -217,39 +253,43 @@ if (settingsForm && billingForm && paymentForm && deliveryForm && trackingForm) 
       deliveryForm.elements.namedItem("city").value = account.delivery.city || "";
       deliveryForm.elements.namedItem("postcode").value = account.delivery.postcode || "";
       deliveryForm.elements.namedItem("country").value = account.delivery.country || "";
-      trackingForm.elements.namedItem("orderId").value = account.orderTracking.orderId || "";
-      trackingForm.elements.namedItem("carrier").value = account.orderTracking.carrier || "";
-      trackingForm.elements.namedItem("trackingNumber").value = account.orderTracking.trackingNumber || "";
-      trackingForm.elements.namedItem("status").value = account.orderTracking.status || "";
-      trackingForm.elements.namedItem("url").value = account.orderTracking.url || "";
+      const renderTrackingDetails = () => {
+        const tracking = account.orderTracking || {};
+        trackingStatusDisplay.textContent = tracking.status || "No updates yet.";
+        trackingCarrierDisplay.textContent = tracking.carrier || "Not provided";
+        trackingNumberDisplay.textContent = tracking.trackingNumber || "Not provided";
 
-      const renderTrackingSummary = () => {
-        trackingSummary.replaceChildren();
-        const tracking = account.orderTracking;
-        if (!tracking.orderId && !tracking.carrier && !tracking.trackingNumber && !tracking.status && !tracking.url) {
-          trackingSummary.textContent = "No tracking details saved yet.";
-          return;
-        }
-
-        const summary = [
-          tracking.orderId && `Order: ${tracking.orderId}`,
-          tracking.carrier && `Courier: ${tracking.carrier}`,
-          tracking.trackingNumber && `Tracking number: ${tracking.trackingNumber}`,
-          tracking.status && `Status: ${tracking.status}`
-        ].filter(Boolean).join(" · ");
-        trackingSummary.append(document.createTextNode(summary || "Tracking information saved."));
-
+        let trackingUrl = "";
         if (tracking.url) {
-          const trackingLink = document.createElement("a");
-          trackingLink.href = tracking.url;
-          trackingLink.target = "_blank";
-          trackingLink.rel = "noopener noreferrer";
-          trackingLink.textContent = " Open courier tracking";
-          trackingSummary.append(trackingLink);
+          try {
+            const parsedUrl = new URL(tracking.url);
+            if (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") {
+              trackingUrl = parsedUrl.href;
+            }
+          } catch (error) {
+            trackingUrl = "";
+          }
+        }
+        trackingLinkDisplay.hidden = !trackingUrl;
+        trackingLinkEmpty.hidden = Boolean(trackingUrl);
+        if (trackingUrl) {
+          trackingLinkDisplay.href = trackingUrl;
+          trackingLinkDisplay.textContent = "Track your delivery";
+        } else {
+          trackingLinkDisplay.removeAttribute("href");
+          trackingLinkDisplay.textContent = "";
         }
       };
 
-      renderTrackingSummary();
+      renderTrackingDetails();
+
+      window.addEventListener("storage", (event) => {
+        if (event.key !== accountStorageKey) return;
+        const latestAccounts = getAccounts();
+        if (!latestAccounts[email]) return;
+        account.orderTracking = latestAccounts[email].orderTracking || {};
+        renderTrackingDetails();
+      });
 
       settingsForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -303,36 +343,92 @@ if (settingsForm && billingForm && paymentForm && deliveryForm && trackingForm) 
         setFormMessage(deliveryMessage, "Your delivery information has been saved.");
       });
 
-      trackingForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        if (!trackingForm.reportValidity()) return;
-
-        const trackingUrl = trackingForm.elements.namedItem("url").value.trim();
-        if (trackingUrl) {
-          const parsedUrl = new URL(trackingUrl);
-          if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
-            setFormMessage(trackingMessage, "Enter a courier tracking link that starts with http:// or https://.", true);
-            return;
-          }
-        }
-
-        account.orderTracking = {
-          orderId: trackingForm.elements.namedItem("orderId").value.trim(),
-          carrier: trackingForm.elements.namedItem("carrier").value.trim(),
-          trackingNumber: trackingForm.elements.namedItem("trackingNumber").value.trim(),
-          status: trackingForm.elements.namedItem("status").value,
-          url: trackingUrl
-        };
-        accounts[email] = account;
-        localStorage.setItem(accountStorageKey, JSON.stringify(accounts));
-        setFormMessage(trackingMessage, "Your tracking details have been saved.");
-        renderTrackingSummary();
-      });
-
       document.getElementById("logoutButton").addEventListener("click", () => {
         sessionStorage.removeItem(activeAccountKey);
         window.location.href = "login.html";
       });
     }
   }
+}
+
+const adminTrackingForm = document.getElementById("adminTrackingForm");
+if (adminTrackingForm) {
+  const accountSelect = document.getElementById("trackingAccount");
+  const accountHelp = document.getElementById("trackingAccountHelp");
+  const adminTrackingMessage = document.getElementById("adminTrackingMessage");
+
+  const populateAdminAccounts = () => {
+    const accounts = getAccounts();
+    const selectedEmail = accountSelect.value;
+    accountSelect.replaceChildren(new Option("Select a customer account", ""));
+    Object.entries(accounts).forEach(([email, account]) => {
+      const option = new Option(`${account.name || "Customer"} — ${email}`, email);
+      accountSelect.append(option);
+    });
+    if (accounts[selectedEmail]) accountSelect.value = selectedEmail;
+    accountSelect.disabled = accountSelect.options.length === 1;
+    accountHelp.textContent = accountSelect.disabled
+      ? "No customer accounts yet. Register a customer account before adding tracking details."
+      : "Choose the customer whose delivery details you want to update.";
+    return accounts;
+  };
+
+  const loadAccountTracking = () => {
+    const accounts = getAccounts();
+    const account = accounts[accountSelect.value];
+    const tracking = account && account.orderTracking ? account.orderTracking : {};
+    adminTrackingForm.elements.namedItem("carrier").value = tracking.carrier || "";
+    adminTrackingForm.elements.namedItem("trackingNumber").value = tracking.trackingNumber || "";
+    adminTrackingForm.elements.namedItem("status").value = tracking.status || "";
+    adminTrackingForm.elements.namedItem("url").value = tracking.url || "";
+  };
+
+  populateAdminAccounts();
+  accountSelect.addEventListener("change", loadAccountTracking);
+  adminTrackingForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!adminTrackingForm.reportValidity()) return;
+
+    const accounts = getAccounts();
+    const email = accountSelect.value;
+    if (!accounts[email]) {
+      setFormMessage(adminTrackingMessage, "Select an existing customer account before saving tracking details.", true);
+      populateAdminAccounts();
+      return;
+    }
+
+    const trackingUrl = adminTrackingForm.elements.namedItem("url").value.trim();
+    if (trackingUrl) {
+      let parsedUrl;
+      try {
+        parsedUrl = new URL(trackingUrl);
+      } catch (error) {
+        setFormMessage(adminTrackingMessage, "Enter a valid courier tracking link that starts with http:// or https://.", true);
+        return;
+      }
+      if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+        setFormMessage(adminTrackingMessage, "Enter a courier tracking link that starts with http:// or https://.", true);
+        return;
+      }
+    }
+
+    accounts[email].orderTracking = {
+      carrier: adminTrackingForm.elements.namedItem("carrier").value.trim(),
+      trackingNumber: adminTrackingForm.elements.namedItem("trackingNumber").value.trim(),
+      status: adminTrackingForm.elements.namedItem("status").value,
+      url: trackingUrl
+    };
+    localStorage.setItem(accountStorageKey, JSON.stringify(accounts));
+    setFormMessage(adminTrackingMessage, `Tracking details updated for ${email}.`);
+  });
+
+  window.addEventListener("storage", (event) => {
+    if (event.key !== accountStorageKey) return;
+    const selectedEmail = accountSelect.value;
+    populateAdminAccounts();
+    if (selectedEmail) {
+      accountSelect.value = selectedEmail;
+      loadAccountTracking();
+    }
+  });
 }

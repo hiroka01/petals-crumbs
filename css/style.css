@@ -525,14 +525,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .form-message-error {
   color: #9A3D35;
 }
-.tracking-summary {
-  margin-top: 15px;
+.tracking-details {
+  display: grid;
+  gap: 13px;
+  margin: 18px 0 0;
   color: var(--text);
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.tracking-details dt {
+  font-weight: bold;
+}
+.tracking-details dd {
+  margin: 2px 0 0;
   overflow-wrap: anywhere;
 }
-.tracking-summary a {
+.tracking-details a {
   color: var(--sage);
   text-decoration: underline;
 }
@@ -627,6 +635,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   min-height: 110px; 
   resize: vertical; 
 }
+.form-field input[type="file"] {
+  padding: 10px;
+}
+#imageUploadHelp {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+.image-preview {
+  min-width: 0;
+  margin: 0;
+}
+.image-preview img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.image-preview figcaption {
+  overflow-wrap: anywhere;
+  margin-top: 5px;
+  color: var(--text);
+  font-size: 12px;
+}
 .form-submit { 
   margin-top: 20px; 
   border: 0; 
@@ -638,22 +676,55 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font-size: 14px; 
 }
 @media (max-width: 900px) {
-  .site-header { flex-wrap: wrap; padding: 15px 5%; }
-  .brand-name { font-size: 21px; }
-  .navigation { gap: 16px; }
-  .header-link { display: none; }
-  .hero-content { padding-left: 8%; }
-  .section { padding: 38px 5%; }
-  .product-grid { gap: 16px; }
-  .occasion-banner { margin-right: 5%; margin-left: 5%; }
+  .site-header { 
+    flex-wrap: wrap; 
+    padding: 15px 5%; 
+  }
+  .brand-name { 
+    font-size: 21px; 
+  }
+  .navigation { 
+    gap: 16px; 
+  }
+  .header-link { 
+    display: none; 
+  }
+  .hero-content { 
+    padding-left: 8%; 
+  }
+  .section { 
+    padding: 38px 5%; 
+  }
+  .product-grid { 
+    gap: 16px; 
+  }
+  .occasion-banner { 
+    margin-right: 5%; 
+    margin-left: 5%; 
+  }
 }
 @media (max-width: 650px) {
-  .site-header { position: relative; min-height: 75px; }
-  .brand-flower { font-size: 30px; }
-  .brand-name { font-size: 19px; }
-  .brand-tagline { font-size: 8px; letter-spacing: 2px; }
-  .menu-toggle { display: block; }
-  .navigation { display: none; width: 100%; flex-direction: column; align-items: stretch; gap: 0; padding-top: 8px; }
+  .site-header { 
+    position: relative; 
+    min-height: 75px; 
+  }
+  .brand-flower { 
+    font-size: 30px; 
+  }
+  .brand-name { 
+    font-size: 19px; 
+  }
+  .brand-tagline { 
+    font-size: 8px; 
+    letter-spacing: 2px; 
+  }
+  .menu-toggle { 
+    display: block; 
+  }
+  .navigation { 
+    display: none; 
+    width: 100%; 
+    flex-direction: column; align-items: stretch; gap: 0; padding-top: 8px; }
   .navigation.open { display: flex; }
   .navigation a { padding: 12px 5px; border-bottom: 1px solid var(--border); }
   .hero { grid-template-columns: 1fr; }
