@@ -1,4 +1,6 @@
 /* Petals & Crumbs — pastel, minimalist responsive design */
+
+/* Global styles and theme */
 :root {
   --cream: #FBF7F1;
   --blush: #F2DEDA;
@@ -31,6 +33,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   outline: 3px solid var(--sage); 
   outline-offset: 4px; 
 }
+
+/* Header, brand and navigation */
 .site-header { 
   min-height: 82px; 
   padding: 15px 7%; 
@@ -93,6 +97,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font-size: 26px; 
   cursor: pointer; 
 }
+
+/* Home page hero and slideshow */
 .hero { 
   display: grid; 
   grid-template-columns: .85fr 1.15fr; 
@@ -207,6 +213,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   outline: 3px solid var(--sage);
   outline-offset: -4px;
 }
+
+/* Shared buttons */
 .button { 
   display: inline-flex; 
   align-items: center; 
@@ -227,6 +235,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .button-green:hover { 
   background: var(--brown); 
 }
+
+/* Home page services and shared content sections */
 .services { 
   display: grid; 
   grid-template-columns: repeat(4, 1fr); 
@@ -410,6 +420,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   color: var(--sage); 
   font-size: 12px; 
 }
+
+/* Shared occasion banner */
 .occasion-banner { 
   display: flex; 
   align-items: center; 
@@ -445,6 +457,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .button-light:hover { 
   background: var(--pink); 
 }
+
+/* Footer */
 .site-footer { 
   display: flex; 
   align-items: center; 
@@ -477,6 +491,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   width: 100%; 
   text-align: center; 
 }
+
+/* Account and authentication pages */
 .account-area {
   max-width: 820px;
   margin: 0 auto;
@@ -580,6 +596,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .button-outline:hover {
   background: var(--sage-light);
 }
+
+/* Shared interior-page introduction and content
+   Used by About, Collections, Customize, Feedback, and account pages. */
 .page-intro { 
   padding: 55px 7%; 
   text-align: center; 
@@ -610,6 +629,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   margin-bottom: 15px; 
   color: var(--text); 
 }
+
+/* Forms and image previews */
 .form-grid { 
   display: grid; 
   grid-template-columns: repeat(2, minmax(0, 1fr)); 
@@ -682,6 +703,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   color: var(--sage); 
   font-size: 14px; 
 }
+
+/* Responsive layouts */
 @media (max-width: 900px) {
   .site-header { 
     flex-wrap: wrap; 
