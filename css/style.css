@@ -544,6 +544,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   color: var(--sage);
   text-decoration: underline;
 }
+.tracking-summary {
+  margin-top: 15px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
 .settings-area {
   max-width: 900px;
 }
@@ -724,31 +731,99 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .navigation { 
     display: none; 
     width: 100%; 
-    flex-direction: column; align-items: stretch; gap: 0; padding-top: 8px; }
-  .navigation.open { display: flex; }
-  .navigation a { padding: 12px 5px; border-bottom: 1px solid var(--border); }
-  .hero { grid-template-columns: 1fr; }
-  .hero-content { padding: 40px 7%; }
-  .hero h1 { font-size: 39px; }
-  .hero-showcase { min-height: 260px; }
-  .hero-slide-caption { margin: 0 90px 38px 7%; font-size: 24px; }
-  .hero-slide-indicators { right: 7%; }
-  .services { grid-template-columns: repeat(2, 1fr); gap: 20px 0; padding: 24px 5%; }
-  .service-item:nth-child(2) { border-right: none; }
-  .service-item h2 { font-size: 14px; }
-  .section-heading { align-items: start; flex-direction: column; gap: 8px; }
-  .section-heading h2 { font-size: 28px; }
-  .product-grid { grid-template-columns: 1fr; gap: 30px; }
-  .product-image { aspect-ratio: 1.5 / 1; }
-  .occasion-banner { align-items: flex-start; flex-direction: column; padding: 24px; }
-  .occasion-banner h2 { font-size: 21px; }
-  .site-footer { align-items: flex-start; flex-direction: column; padding: 28px 7%; }
-  .footer-links { gap: 15px; }
-  .copyright { text-align: left; }
-  .form-grid { grid-template-columns: 1fr; }
-  .form-field.full-width { grid-column: auto; }
-  .page-intro h1 { font-size: 34px; }
-  .account-area { padding: 32px 5%; }
-  .account-panel { padding: 20px; }
-  .logout-row { align-items: flex-start; flex-direction: column; }
+    flex-direction: column; 
+    align-items: stretch; 
+    gap: 0; 
+    padding-top: 8px; 
+  }
+  .navigation.open { 
+    display: flex; 
+  }
+  .navigation a { 
+    padding: 12px 5px; 
+    border-bottom: 1px solid var(--border); 
+  }
+  .hero { 
+    grid-template-columns: 1fr; 
+  }
+  .hero-content { 
+    padding: 40px 7%; 
+  }
+  .hero h1 { 
+    font-size: 39px; 
+  }
+  .hero-showcase {
+    min-height: 260px; 
+  }
+  .hero-slide-caption { 
+    margin: 0 90px 38px 7%; 
+    font-size: 24px; 
+  }
+  .hero-slide-indicators { 
+    right: 7%; 
+  }
+  .services { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px 0; 
+    padding: 24px 5%; 
+  }
+  .service-item:nth-child(2) { 
+    border-right: none; 
+  }
+  .service-item h2 { 
+    font-size: 14px; 
+  }
+  .section-heading { 
+    align-items: start; 
+    flex-direction: column; 
+    gap: 8px; 
+  }
+  .section-heading h2 { 
+    font-size: 28px; 
+  }
+  .product-grid { 
+    grid-template-columns: 1fr; 
+    gap: 30px; 
+  }
+  .product-image { 
+    aspect-ratio: 1.5 / 1; 
+  }
+  .occasion-banner { 
+    align-items: flex-start; 
+    flex-direction: column; 
+    padding: 24px; 
+  }
+  .occasion-banner h2 { 
+    font-size: 21px; 
+  }
+  .site-footer { 
+    align-items: flex-start; 
+    flex-direction: column; 
+    padding: 28px 7%; 
+  }
+  .footer-links { 
+    gap: 15px; 
+  }
+  .copyright { 
+    text-align: left; 
+  }
+  .form-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .form-field.full-width { 
+    grid-column: auto; 
+  }
+  .page-intro h1 { 
+    font-size: 34px; 
+  }
+  .account-area { 
+    padding: 32px 5%; 
+  }
+  .account-panel { 
+    padding: 20px; 
+  }
+  .logout-row { 
+    align-items: flex-start; 
+    flex-direction: column; 
+  }
 }

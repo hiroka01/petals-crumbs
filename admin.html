@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Order Tracking | Petals &amp; Crumbs</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-flower" aria-hidden="true">❀</span><span><span class="brand-name">Petals &amp; Crumbs</span><span class="brand-tagline">ADMIN · ORDER MANAGEMENT</span></span></a>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="navigation" aria-label="Main navigation"><a href="index.html">Home</a><a href="settings.html">Customer account</a></nav>
+</header>
+<main>
+  <section class="page-intro"><p class="eyebrow">ADMINISTRATION</p><h1>Order Tracking</h1><p>Update delivery information shown in a customer's account.</p></section>
+  <section class="account-area">
+    <div class="account-panel">
+      <h2>Update Customer Delivery</h2>
+      <p class="account-note">This demo stores accounts in this browser only and does not provide administrator authentication. Do not use it for real customer or order data.</p>
+      <form id="adminTrackingForm">
+        <div class="form-grid">
+          <div class="form-field full-width"><label for="trackingAccount">Customer account *</label><select id="trackingAccount" name="account" required aria-describedby="trackingAccountHelp"><option value="">Select a customer account</option></select><small id="trackingAccountHelp">Choose the customer whose delivery details you want to update.</small></div>
+          <div class="form-field"><label for="adminTrackingStatus">Delivery status *</label><select id="adminTrackingStatus" name="status" required><option value="">Select status</option><option>Order received</option><option>Preparing</option><option>Dispatched</option><option>Out for delivery</option><option>Delivered</option></select></div>
+          <div class="form-field"><label for="adminTrackingCarrier">Courier name</label><input type="text" id="adminTrackingCarrier" name="carrier" autocomplete="off"></div>
+          <div class="form-field"><label for="adminTrackingNumber">Tracking number</label><input type="text" id="adminTrackingNumber" name="trackingNumber" autocomplete="off"></div>
+          <div class="form-field full-width"><label for="adminTrackingUrl">Courier tracking link</label><input type="url" id="adminTrackingUrl" name="url" placeholder="https://..." inputmode="url" autocomplete="url"></div>
+        </div>
+        <button class="button button-green form-submit" type="submit">Save Delivery Update</button>
+        <p id="adminTrackingMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <a class="brand footer-brand" href="index.html"><span class="brand-flower" aria-hidden="true">❀</span><span><span class="brand-name">Petals &amp; Crumbs</span><span class="brand-tagline">CAKES · FLOWERS · GIFTS</span></span></a>
+  <div class="footer-links"><a href="index.html">Home</a><a href="settings.html">Customer account</a></div>
+  <p class="copyright">© <span id="year">2026</span> Petals &amp; Crumbs. All rights reserved.</p>
+</footer>
+</body>
+</html>

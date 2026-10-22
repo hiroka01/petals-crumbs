@@ -60,19 +60,13 @@
     </div>
     <div class="account-panel">
       <h2>Order Tracking</h2>
-      <p>Enter tracking details from your order confirmation to keep them with your profile. Tracking status is updated manually and is not connected to a courier.</p>
-      <form id="trackingForm">
-        <div class="form-grid">
-          <div class="form-field"><label for="trackingOrderId">Order number</label><input type="text" id="trackingOrderId" name="orderId" autocomplete="off"></div>
-          <div class="form-field"><label for="trackingCarrier">Courier</label><input type="text" id="trackingCarrier" name="carrier" autocomplete="off"></div>
-          <div class="form-field"><label for="trackingNumber">Tracking number</label><input type="text" id="trackingNumber" name="trackingNumber" autocomplete="off"></div>
-          <div class="form-field"><label for="trackingStatus">Delivery status</label><select id="trackingStatus" name="status"><option value="">Select status</option><option>Order received</option><option>Preparing</option><option>Dispatched</option><option>Out for delivery</option><option>Delivered</option></select></div>
-          <div class="form-field full-width"><label for="trackingUrl">Courier tracking link</label><input type="url" id="trackingUrl" name="url" placeholder="https://..." inputmode="url" autocomplete="url"></div>
-        </div>
-        <button class="button button-green form-submit" type="submit">Save Tracking Details</button>
-        <p id="trackingMessage" class="form-message" role="status" aria-live="polite"></p>
-        <p id="trackingSummary" class="tracking-summary" aria-live="polite"></p>
-      </form>
+      <p>Delivery updates are provided by our team.</p>
+      <dl id="trackingDetails" class="tracking-details" aria-live="polite">
+        <div><dt>Delivery status</dt><dd id="trackingStatusDisplay">No updates yet.</dd></div>
+        <div><dt>Courier</dt><dd id="trackingCarrierDisplay">Not provided</dd></div>
+        <div><dt>Tracking number</dt><dd id="trackingNumberDisplay">Not provided</dd></div>
+        <div><dt>Courier tracking link</dt><dd><a id="trackingLinkDisplay" target="_blank" rel="noopener noreferrer" hidden></a><span id="trackingLinkEmpty">Not provided</span></dd></div>
+      </dl>
     </div>
     <div class="account-panel">
       <h2>Payment Method</h2>
