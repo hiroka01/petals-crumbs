@@ -703,6 +703,60 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   color: var(--sage); 
   font-size: 14px; 
 }
+.submission-notification {
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  width: min(440px, calc(100vw - 36px));
+  padding: 30px 32px;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #FFFCF8;
+  box-shadow: 0 18px 60px rgb(80 55 47 / 24%);
+  text-align: center;
+  animation: notification-enter .35s cubic-bezier(.2, .8, .2, 1) both;
+}
+.submission-notification h2 {
+  margin-bottom: 9px;
+  color: var(--sage);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: normal;
+}
+.submission-notification p {
+  color: var(--text);
+  font-size: 14px;
+}
+.submission-notification-dismiss {
+  position: absolute;
+  top: 8px;
+  right: 11px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+.submission-notification-dismiss:hover {
+  background: var(--sage-light);
+}
+.submission-notification.is-dismissing {
+  animation: notification-exit .22s ease-in both;
+}
+@keyframes notification-enter {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 18px)) scale(.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes notification-exit {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, calc(-50% + 10px)) scale(.98); }
+}
 
 /* Responsive layouts */
 @media (max-width: 900px) {
@@ -731,6 +785,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .occasion-banner { 
     margin-right: 5%; 
     margin-left: 5%; 
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .submission-notification,
+  .submission-notification.is-dismissing {
+    animation-duration: .01ms;
   }
 }
 @media (max-width: 650px) {

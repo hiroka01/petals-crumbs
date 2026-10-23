@@ -64,13 +64,56 @@ if (heroShowcase) {
   startRotation();
 }
 
+let submissionNotification;
+let submissionNotificationTimer;
+
+function showSubmissionNotification(message) {
+  if (submissionNotification) {
+    window.clearTimeout(submissionNotificationTimer);
+    submissionNotification.remove();
+  }
+
+  const notification = document.createElement("section");
+  notification.className = "submission-notification";
+  notification.setAttribute("role", "status");
+  notification.setAttribute("aria-live", "polite");
+  notification.setAttribute("aria-atomic", "true");
+
+  const heading = document.createElement("h2");
+  heading.textContent = "Request received";
+
+  const content = document.createElement("p");
+  content.textContent = message;
+
+  const dismissButton = document.createElement("button");
+  dismissButton.className = "submission-notification-dismiss";
+  dismissButton.type = "button";
+  dismissButton.setAttribute("aria-label", "Dismiss notification");
+  dismissButton.textContent = "×";
+
+  notification.append(heading, content, dismissButton);
+  document.body.append(notification);
+  submissionNotification = notification;
+
+  const dismiss = () => {
+    if (!notification.isConnected || notification.classList.contains("is-dismissing")) return;
+    notification.classList.add("is-dismissing");
+    window.setTimeout(() => {
+      notification.remove();
+      if (submissionNotification === notification) submissionNotification = null;
+    }, 220);
+  };
+
+  dismissButton.addEventListener("click", dismiss);
+  submissionNotificationTimer = window.setTimeout(dismiss, 6000);
+}
+
 // Custom gift form confirmation
 const giftForm = document.getElementById("giftForm");
-const formMessage = document.getElementById("formMessage");
 const inspirationImages = document.getElementById("inspirationImages");
 const imagePreviews = document.getElementById("imagePreviews");
 
-if (giftForm && formMessage) {
+if (giftForm) {
   const previewUrls = [];
 
   const clearImagePreviews = () => {
@@ -113,22 +156,23 @@ if (giftForm && formMessage) {
     }
 
     const customerName = document.getElementById("customerName").value.trim();
-    formMessage.textContent =
-      `Thank you, ${customerName}! Your sample gift request has been received. Any selected images were only previewed and have not been uploaded or saved.`;
+    showSubmissionNotification(
+      `Thank you, ${customerName}! Your sample gift request has been received. Any selected images were only previewed and have not been uploaded or saved.`
+    );
     giftForm.reset();
   });
 }
 
 const feedbackForm = document.getElementById("feedbackForm");
-const feedbackFormMessage = document.getElementById("feedbackFormMessage");
 
-if (feedbackForm && feedbackFormMessage) {
+if (feedbackForm) {
   feedbackForm.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!feedbackForm.reportValidity()) return;
 
-    feedbackFormMessage.textContent =
-      "Thank you for your feedback. This website only displays a confirmation; it does not send or store your message.";
+    showSubmissionNotification(
+      "Thank you for your feedback. This website only displays a confirmation; it does not send or store your message."
+    );
     feedbackForm.reset();
   });
 }
